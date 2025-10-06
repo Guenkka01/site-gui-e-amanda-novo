@@ -7,7 +7,7 @@ const START_DATE = new Date(2025, 2, 1, 0, 0, 0); // meses 0-index → 2 = març
 const KNOWN_DATE = new Date(2016, 1, 18, 0, 0, 0); // 18/02/2016
 
 // Array de fotos para rotação (adicione mais fotos conforme necessário)
-const FOTOS = ['foto1.jpg', 'foto2.jpg', 'foto3.jpg', 'foto4.jpg', 'foto5.jpg', 'foto6.jpg', 'foto7.jpg', 'foto8.jpeg', 'foto9.jpeg', 'foto10.jpeg', 'foto11.jpeg', 'foto12.jpeg', 'foto13.jpeg', 'foto14.jpeg', 'foto15.jpeg'];
+const FOTOS = ['foto1.jpg', 'foto2.jpg', 'foto3.jpg', 'foto4.jpg', 'foto5.jpg', 'foto6.jpg', 'foto7.jpg', 'foto8.jpeg', 'foto9.jpeg', 'foto10.jpeg', 'foto11.jpeg', 'foto12.jpeg', 'foto13.jpeg', 'foto14.jpeg', 'foto15.jpeg', 'foto16.jpeg', 'foto17.jpeg', 'foto18.jpeg'];
 let fotoAtualIndex = 0;
 let intervaloTrocaFoto = null;
 
