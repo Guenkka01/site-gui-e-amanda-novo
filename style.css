@@ -64,14 +64,31 @@ body {
 	position: sticky;
 	top: 0;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
-	justify-content: space-between;
 	gap: 12px;
 	padding: 18px 20px;
 	background: rgba(10, 42, 34, 0.6);
 	backdrop-filter: blur(6px);
 	border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 	z-index: 2;
+}
+
+@media (min-width: 640px) {
+	.site-header {
+		flex-direction: row;
+		justify-content: space-between;
+	}
+}
+
+.brand {
+	text-align: center;
+}
+
+@media (min-width: 640px) {
+	.brand {
+		text-align: left;
+	}
 }
 
 .brand .subtitle {
