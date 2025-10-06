@@ -7,11 +7,25 @@ const START_DATE = new Date(2025, 2, 1, 0, 0, 0); // meses 0-index → 2 = març
 const KNOWN_DATE = new Date(2016, 1, 18, 0, 0, 0); // 18/02/2016
 
 // Array de fotos para rotação (adicione mais fotos conforme necessário)
-const FOTOS = ['foto1.jpg', 'foto2.jpg', 'foto3.jpg', 'foto4.jpg', 'foto5.jpg', 'foto6.jpg', 'foto7.jpg', 'foto8.jpeg', 'foto9.jpeg', 'foto10.jpeg', 'foto11.jpeg', 'foto12.jpeg', 'foto13.jpeg', 'foto14.jpeg', 'foto15.jpeg', 'foto16.jpeg', 'foto17.jpeg', 'foto18.jpeg'];
+const FOTOS = ['foto1.jpg', 'foto2.jpg', 'foto3.jpg', 'foto4.jpg', 'foto5.jpg', 'foto6.jpg', 'foto7.jpg', 'foto8.jpeg', 'foto9.jpeg', 'foto10.jpeg', 'foto11.jpeg', 'foto12.jpeg', 'foto13.jpeg', 'foto14.jpeg', 'foto15.jpeg', 'foto16.jpeg', 'foto17.jpeg', 'foto18.jpeg', 'foto19.jpeg'];
+let fotosEmbaralhadas = [];
 let fotoAtualIndex = 0;
 let intervaloTrocaFoto = null;
 
-// Função para trocar foto com efeito de fade (ordem aleatória)
+// Função para embaralhar array
+function embaralharArray(array) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
+
+// Inicializa fotos embaralhadas
+fotosEmbaralhadas = embaralharArray(FOTOS);
+
+// Função para trocar foto com efeito de fade (sem repetir até passar todas)
 function trocarFoto() {
     const img = document.querySelector('.photo-frame img');
     if (img) {
@@ -20,15 +34,17 @@ function trocarFoto() {
         img.style.transform = 'scale(0.98)';
         
         setTimeout(() => {
-            // Escolhe uma foto aleatória diferente da atual
-            let novoIndex;
-            do {
-                novoIndex = Math.floor(Math.random() * FOTOS.length);
-            } while (novoIndex === fotoAtualIndex && FOTOS.length > 1);
+            // Avança para próxima foto do array embaralhado
+            fotoAtualIndex++;
             
-            fotoAtualIndex = novoIndex;
-            img.src = FOTOS[fotoAtualIndex];
-            img.alt = 'Nós dois - Foto ' + (fotoAtualIndex + 1);
+            // Se chegou ao fim, embaralha novamente
+            if (fotoAtualIndex >= fotosEmbaralhadas.length) {
+                fotoAtualIndex = 0;
+                fotosEmbaralhadas = embaralharArray(FOTOS);
+            }
+            
+            img.src = fotosEmbaralhadas[fotoAtualIndex];
+            img.alt = 'Nós dois';
             
             // Efeito de fade in (mais lento)
             setTimeout(() => {
@@ -51,11 +67,12 @@ function pararTrocaFoto() {
         clearInterval(intervaloTrocaFoto);
         intervaloTrocaFoto = null;
     }
-    // Volta para a primeira foto
+    // Volta para a primeira foto e reseta o embaralhamento
     const img = document.querySelector('.photo-frame img');
     if (img) {
         fotoAtualIndex = 0;
-        img.src = FOTOS[0];
+        fotosEmbaralhadas = embaralharArray(FOTOS);
+        img.src = fotosEmbaralhadas[0];
         img.alt = 'Nós dois';
     }
 }
